@@ -15,27 +15,56 @@ class ArticleTest {
 		String body = "";
 		Article a = new Article(title, now, isLimited, body);
 		
-		Field[] fs = getFields();
-		fs[1].setAccessible(true);
-		LocalDate exnow = (LocalDate) fs[1].get(a);
-		
-		assertEquals(now, exnow);
+//		以下、期待した値と等しいかどうか　記事番号、タイトル、記事作製時間、有料記事か、本文　の順
+		assertEquals(1, getArticleNumber(a));
 		
 		assertEquals(title, getTitleByReflection(a));
 		
+		assertEquals(now, getWrittenDateByReflection(a));
+		
+		assertEquals(isLimited, getLimitedByReflection(a));
+		
+		assertEquals(body, getBodyByReflection(a));
+//		ここまで
+		
 		
 	}
 	
-	String getTitleByReflection(Article obj) throws Exception {
-		Field f = Article.class.getDeclaredField("title");
+//	Articleクラスの特定のフィールドを取ってくる
+	Field getArticleField(String fieldName) throws Exception {
+		Field f = Article.class.getDeclaredField(fieldName);
 		f.setAccessible(true);
-		return (String) f.get(obj);
-		
+		return f;
 	}
 	
-	Field[] getFields() throws Exception {
-		Field[] fields = Article.class.getDeclaredFields();
-		return fields;
+//	指定されたインスタンスの記事番号をとってくる
+	int getArticleNumber(Article obj) throws Exception {
+		Field f = getArticleField("article_number");
+		return (int) f.get(obj);
+	}
+	
+//	指定されたインスタンスのタイトルを取ってくる
+	String getTitleByReflection(Article obj) throws Exception {
+		Field f = getArticleField("title");
+		return (String) f.get(obj);
+	}
+	
+//	指定されたインスタンスの記事作成時を取ってくる
+	LocalDate getWrittenDateByReflection(Article obj) throws Exception {
+		Field f = getArticleField("written_date");
+		return (LocalDate) f.get(obj);
+	}
+	
+//	指定されたインスタンスの有料記事かどうかの判定をとってくる
+	boolean getLimitedByReflection(Article obj) throws Exception {
+		Field f = getArticleField("limited");
+		return (boolean) f.get(obj);
+	}
+	
+//	指定されたインスタンスの本文を取ってくる
+	String getBodyByReflection(Article obj) throws Exception {
+		Field f = getArticleField("body");
+		return (String) f.get(obj);
 	}
 	
 
