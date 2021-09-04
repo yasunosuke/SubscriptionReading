@@ -26,8 +26,6 @@ class ArticleTest {
 		
 		assertEquals(body, getBodyByReflection(a));
 //		ここまで
-		
-		
 	}
 	
 //	Articleクラスの特定のフィールドを取ってくる
@@ -66,6 +64,18 @@ class ArticleTest {
 		Field f = getArticleField("body");
 		return (String) f.get(obj);
 	}
+	
+	public void testGetArtcleNumber() throws Exception {
+		String title = "a";
+		LocalDate now = LocalDate.now();
+		boolean isLimited = true;
+		String body = "";
+		Article a = new Article(title, now, isLimited, body);
+		
+		assertEquals(1, a.getArticleNumber());
+	}
+	
+	
 	
 
 }
