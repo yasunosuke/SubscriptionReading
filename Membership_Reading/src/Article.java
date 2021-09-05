@@ -47,6 +47,7 @@ public class Article {
 	public String getSummaryArticle() {
 		
 		String isPaid;
+		
 		if(this.limited == true) {
 			isPaid = "有";
 		} else {
@@ -72,7 +73,7 @@ public class Article {
 		String titles = String.format("%4d%2s%6s%11s ", this.article_number, isLimited, this.title, this.written_date);
 		System.out.println(titles);
 		
-		System.out.print(" ");
+		System.out.print(" ");/* 最初の段落のインデント */
 		String[] bitsBody = this.body.split("");
 		for(int i = 0; i < bitsBody.length; i++) {
 			System.out.print(bitsBody[i]);

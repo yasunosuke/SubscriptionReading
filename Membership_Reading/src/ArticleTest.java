@@ -75,9 +75,57 @@ class ArticleTest {
 		assertEquals(1, a.getArticleNumber());
 	}
 	
-	public void getSummaryArticle() throws Exception {
+	public void testGetSummaryArticle01() throws Exception {
+		String title = "a";
+		LocalDate now = LocalDate.now();
+		boolean isLimited = true;
+		String body = "";
+		Article a = new Article(title, now, isLimited, body);
 		
+		a.getSummaryArticle();
 	}
+	
+	public void testGetSummaryArticle02() throws Exception {
+		String title = "a";
+		LocalDate now = LocalDate.now();
+		boolean isLimited = false;
+		String body = "";
+		Article a = new Article(title, now, isLimited, body);
+		
+		a.getSummaryArticle();
+	}
+	
+	public void testIsLimited() throws Exception {
+		String title = "a";
+		LocalDate now = LocalDate.now();
+		boolean isLimited = false;
+		String body = "";
+		Article a = new Article(title, now, isLimited, body);
+		
+		assertFalse(a.isLimited());
+	}
+	
+	public void testDisplayArticles01() throws Exception {
+		String title = "a";
+		LocalDate now = LocalDate.now();
+		boolean isLimited = true;
+		String body = "";
+		Article a = new Article(title, now, isLimited, body);
+		
+		a.displayArticle();
+	}
+	
+	public void testDisplayArticles02() throws Exception {
+		String title = "a";
+		LocalDate now = LocalDate.now();
+		boolean isLimited = false;
+		String body = "";
+		Article a = new Article(title, now, isLimited, body);
+		
+		a.displayArticle();
+	}
+	
+	
 	
 	
 	
