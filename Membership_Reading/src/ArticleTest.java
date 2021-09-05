@@ -75,6 +75,10 @@ class ArticleTest {
 		assertEquals(1, a.getArticleNumber());
 	}
 	
+	public void getSummaryArticle() throws Exception {
+		
+	}
+	
 	
 	
 
