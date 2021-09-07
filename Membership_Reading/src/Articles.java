@@ -15,7 +15,6 @@ public class Articles {
 	
 	private static Articles articleSingleton = new Articles();
 	
-//	asynchronized•K—v
 	private Map<Integer, Article> articles = new LinkedHashMap<Integer, Article>();
 	
 	/**
