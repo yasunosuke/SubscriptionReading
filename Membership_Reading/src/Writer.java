@@ -27,6 +27,10 @@ public class Writer {
 		this.name = name;
 	}
 	
+	/**
+	 * 書き終えた記事集を取得する
+	 * @return
+	 */
 	public LinkedHashMap<String, Article> getDoneArticles() {
 		return doneArticles;
 	}
@@ -46,11 +50,11 @@ public class Writer {
 //		タイトルを取得する
 		do {
 			System.out.println("タイトルを入力してください（５文字以内）");
-		title = sc.nextLine();
-		if(1 <= title.length() && title.length() <= Article.TITLE_LENGTH)
-			break;
-		else
-			System.out.println("1文字以上５文字以内に収めてください。");
+			title = sc.nextLine();
+			if(1 <= title.length() && title.length() <= Article.TITLE_LENGTH)
+				break;
+			else
+				System.out.println("1文字以上５文字以内に収めてください。");
 		} while(true);
 		
 		
