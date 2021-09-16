@@ -31,6 +31,58 @@ public class Article {
 		this.limited = limited;
 		this.body = body;
 	}
+	
+	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + article_number;
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + (limited ? 1231 : 1237);
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((written_date == null) ? 0 : written_date.hashCode());
+		return result;
+	}
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Article other = (Article) obj;
+		if (article_number != other.article_number)
+			return false;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		if (limited != other.limited)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (written_date == null) {
+			if (other.written_date != null)
+				return false;
+		} else if (!written_date.equals(other.written_date))
+			return false;
+		return true;
+	}
+
+
+
 
 	/**
 	 * 記事番号を返すメソッド
