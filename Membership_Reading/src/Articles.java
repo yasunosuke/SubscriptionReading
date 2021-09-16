@@ -16,7 +16,6 @@ public class Articles {
 	private static Articles articleSingleton = new Articles();
 	
 	private Map<Integer, Article> articles = new LinkedHashMap<Integer, Article>();
-	
 	/**
 	 * コンストラクタ
 	 */
