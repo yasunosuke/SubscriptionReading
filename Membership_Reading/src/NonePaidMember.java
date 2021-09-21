@@ -26,20 +26,22 @@ public class NonePaidMember extends Member {
 	/**
 	 * 記事を読むメソッド
 	 * ３記事よりも多く読めない
-	 * @param article_num
+	 * @param articleNum
 	 */
-	public void read(int article_num) {
+	public void read(int articleNum) {
 		
-		Article a = articles.getArticle(article_num);
+		Article a = articles.getArticle(articleNum);
 		
 		if(readArticleNumber >= 3 || a.isLimited()) {
+			
 			if(readArticleNumber >=3)
 				System.out.println("規定数に達したため、記事を読めません。");
 			
 			if(a.isLimited())
 				System.out.println("有料記事のため読めません。");
+			
 		} else {
-			articles.displayAnArticle(article_num);
+			articles.displayAnArticle(articleNum);
 			readArticleNumber++;
 		}
 	}
