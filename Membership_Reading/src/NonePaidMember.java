@@ -1,7 +1,7 @@
 
 /**
  * –³—¿‰ïˆõ‚ğ•\‚·ƒNƒ‰ƒX
- * @author yasuhiro
+ * 
  *
  */
 public class NonePaidMember extends Member {
