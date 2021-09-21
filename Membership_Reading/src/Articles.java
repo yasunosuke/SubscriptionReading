@@ -31,9 +31,9 @@ public class Articles {
 		
 		for(String k: writer_articles.keySet()) {
 			Article a = writer_articles.get(k);
-			int article_num = a.getArticleNumber();
+			int articleNum = a.getArticleNumber();
 			
-			articles.put(article_num, a);
+			articles.put(articleNum, a);
 		}
 		
 	}
@@ -123,19 +123,19 @@ public class Articles {
 	
 	/**
 	 * 1つの記事を表示するメソッド
-	 * @param article_num
+	 * @param articleNum
 	 */
-	public void displayAnArticle(int article_num) {
-		articles.get(article_num).displayArticle();
+	public void displayAnArticle(int articleNum) {
+		articles.get(articleNum).displayArticle();
 	}
 	
 	/**
 	 * 記事を取得するメソッド
-	 * @param article_num
+	 * @param articleNum
 	 * @return
 	 */
-	public Article getArticle(int article_num) {
-		return articles.get(article_num);
+	public Article getArticle(int articleNum) {
+		return articles.get(articleNum);
 	}
 	
 
