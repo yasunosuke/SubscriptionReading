@@ -45,6 +45,9 @@ public class Articles {
 	 */
 	public void displayAllArticles(Set<Integer> doneArticles) {
 		
+//		TODO 下の処理if-elseで書く、articleの記事数が２よりも少ない時、上いif文だけではなく下のfor文も実行されてしまうから
+//		TODO articleのsizeが０の時の処理（上のif文）
+		
 		if(articles.size() < 2) {
 			for(Integer a: articles.keySet()) {
 				System.out.print(articles.get(a).getSummaryArticle());
