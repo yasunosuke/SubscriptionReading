@@ -84,6 +84,7 @@ public class NonePaidMemberTest {
 				
 				Article article = ArticleStoreTestHelper.instantiateArticle();
 				Map<String, Article> doneArticles = new LinkedHashMap<String, Article>();
+				doneArticles.put(article.getTitle(), article);
 				Articles articles = Articles.getInstance();
 				articles.register(doneArticles);
 				npm = new NonePaidMember(articles);
@@ -144,6 +145,55 @@ public class NonePaidMemberTest {
 				
 			}
 		}
+		
+		@Nested
+		public class ReadArticleNumber3ArticleIsLimitedFalse {
+			private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+			private Member npm;
+			
+//			SetUp
+			@BeforeEach
+			public void setUp() throws Exception {
+				
+//				無料記事をセットする
+				Article article = ArticleStoreTestHelper.instanciateIsLimitedFalseArticle();
+				
+				Map<String, Article> doneArticles = new LinkedHashMap<String, Article>();
+				doneArticles.put(article.getTitle(), article);
+				
+//				記事番号をキーとしてarticlesのインスタンスに登録
+				Articles articles = Articles.getInstance();
+				articles.register(doneArticles);
+				
+//				インスタンス生成				
+				npm = new NonePaidMember(articles);
+//				ここまで有料記事セット
+				
+//				リフレクションAPIでreadArticleNumberフィールドに３を設定する
+				Field f = NonePaidMember.class.getDeclaredField("readArticleNumber");
+				f.setAccessible(true);
+				f.set(npm, 3);
+				
+//				標準出力をByteArrayOutputStreamへ変更
+				System.setOut(new PrintStream(out));
+			}
+			
+			@AfterEach
+			public void clearUpStream() throws Exception {
+//				TearDown
+				System.setOut(null);
+			}
+			
+			@Test
+			public void testReadReadArticleNumber3ArticleIsLimitedFlase() throws Exception {
+//				Exercise
+				npm.read(1);
+//				Verify			
+				assertEquals("規定数に達したため、記事を読めません。" + System.lineSeparator(), out.toString());
+				
+			}
+		}
+		
 		
 		
 	}
