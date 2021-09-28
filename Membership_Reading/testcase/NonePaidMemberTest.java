@@ -146,6 +146,7 @@ public class NonePaidMemberTest {
 			}
 		}
 		
+//		readArticleNumber = 3, isLimited = false @Article のとき
 		@Nested
 		public class ReadArticleNumber3ArticleIsLimitedFalse {
 			private final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -167,7 +168,7 @@ public class NonePaidMemberTest {
 				
 //				インスタンス生成				
 				npm = new NonePaidMember(articles);
-//				ここまで有料記事セット
+//				ここまで無料記事セット
 				
 //				リフレクションAPIでreadArticleNumberフィールドに３を設定する
 				Field f = NonePaidMember.class.getDeclaredField("readArticleNumber");
@@ -190,6 +191,94 @@ public class NonePaidMemberTest {
 				npm.read(1);
 //				Verify			
 				assertEquals("規定数に達したため、記事を読めません。" + System.lineSeparator(), out.toString());
+				
+			}
+		}
+		
+//		readArticleNumber = 0, isLimited = false @Article のとき
+		@Nested
+		public class readArticleNumber0IsLimitedfalseTest {
+			private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+			private Member npm;
+			
+//			SetUp
+			@BeforeEach
+			public void setUp() throws Exception {
+				
+//				無料記事をセットする
+				Article article = ArticleStoreTestHelper.instanciateIsLimitedFalseArticle();
+				
+				Map<String, Article> doneArticles = new LinkedHashMap<String, Article>();
+				doneArticles.put(article.getTitle(), article);
+				
+//				記事番号をキーとしてarticlesのインスタンスに登録
+				Articles articles = Articles.getInstance();
+				articles.register(doneArticles);
+				
+//				インスタンス生成				
+				npm = new NonePaidMember(articles);
+//				ここまで無料記事セット
+				
+//				標準出力をByteArrayOutputStreamへ変更
+				System.setOut(new PrintStream(out));
+				
+			}
+			
+			@Test
+			void testReadArticleNumber0IsLimitedfalse() throws Exception {
+				FieldGetterTestHelper<Integer> fieldGetterTestHelper = new FieldGetterTestHelper<Integer>();
+//				Exercise
+				npm.read(1);
+//				Verify				
+				assertEquals("   1 無     a 2021-09-28 " + System.lineSeparator() + " " + "body" + System.lineSeparator(), out.toString());
+				
+				int readArticleNumber = fieldGetterTestHelper.getHogeField(npm, "readArticleNumber");
+				assertEquals(1, readArticleNumber);
+			} 
+			
+			
+		}
+		
+		@Nested
+		public class ReadArticleNumber0IsLimitedTrueTest {
+			
+			private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+			Member npm;
+			
+//			SetUp
+			@BeforeEach
+			public void setUp() throws Exception {
+				
+//				有料記事をセットする
+				Article article = ArticleStoreTestHelper.instanciateIsLimitedTrueArticle();
+				
+				Map<String, Article> doneArticles = new LinkedHashMap<String, Article>();
+				doneArticles.put(article.getTitle(), article);
+				
+//				記事番号をキーとしてarticlesのインスタンスに登録
+				Articles articles = Articles.getInstance();
+				articles.register(doneArticles);
+				
+//				インスタンス生成				
+				npm = new NonePaidMember(articles);
+//				ここまで有料記事セット
+				
+//				標準出力をByteArrayOutputStreamへ変更
+				System.setOut(new PrintStream(out));
+			}
+			
+			@AfterEach
+			public void clearUpStream() throws Exception {
+//				TearDown
+				System.setOut(null);
+			}
+			
+			@Test
+			public void testReadReadArticleNumber0ArticleIsLimitedTrue() throws Exception {
+//				Exercise
+				npm.read(1);
+//				Verify			
+				assertEquals("有料記事のため読めません。" + System.lineSeparator(), out.toString());
 				
 			}
 		}
